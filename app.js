@@ -115,7 +115,7 @@ function APIprocess(user) {
     }
     GH_DATA = tmpGH_DATA;
   } else if(GH_FLWG > 29) {
-    alert("A quantidade de pessoas eu você Segue é muito Alta. O máximo permitido é 30 pessoas.")
+    alert("A quantidade de pessoas que você Segue é muito Alta. O máximo permitido é 30 pessoas.")
   } else {
     alert("Foi atingido o limite de requisições com a API do GitHub. Em uma Hora voltará à funcionar!");
   }
