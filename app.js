@@ -16,12 +16,15 @@ class InpText extends React.Component {
 class Cards extends React.Component {
   render() {
     let itens = this.props.json.map((item, index) => {
+      let style = {
+        background: item.bg
+      }
       return (
         <div className="card" key={index}>
           <img src={item.avatar_url}/>
           <h2>{item.name}</h2>
           <p className="card-fol"><b>{item.followers}</b> followers</p>
-          <p className="card-position"><b>#{item.pos}</b></p>
+          <p className="card-position" style={style}><b>#{item.pos}</b></p>
         </div>
       );
     });
@@ -74,7 +77,7 @@ function APIprocess(user) {
   if (parseInt(GH_FLWG) <= 30) {
     let GH_USERS = [GH_MAIN];
 
-    // Pega os usuários das contas que são seguidas pel principal
+    // Pega os usuários das contas que são seguidas pela principal
     xhttp.open("GET", `https://api.github.com/users/${GH_MAIN}/following`, false);
     xhttp.send();
     let GH_FLWG_DATA = JSON.parse(xhttp.responseText);
@@ -108,18 +111,25 @@ function APIprocess(user) {
       if (GH_MAIN_POS > 9 && i == 9) {
         tmpGH_DATA.push(GH_USER);
         tmpGH_DATA[i].pos = GH_MAIN_POS + 1;
+        tmpGH_DATA[i].bg = "grey";
       } else {
         tmpGH_DATA.push(GH_DATA[i]);
         tmpGH_DATA[i].pos = i + 1;
+        if (tmpGH_DATA[i].pos < 4) {
+          tmpGH_DATA[i].bg = "gold";
+        } else {
+          tmpGH_DATA[i].bg = "#30acff";
+        }
       }
     }
     GH_DATA = tmpGH_DATA;
-  } else if(GH_FLWG > 29) {
+  } else if (GH_FLWG > 29) {
     alert("A quantidade de pessoas que você Segue é muito Alta. O máximo permitido é 30 pessoas.")
   } else {
     alert("Foi atingido o limite de requisições com a API do GitHub. Em uma Hora voltará à funcionar!");
   }
-} APIprocess("GabrielDSRodrigues");
+}
+APIprocess("GabrielDSRodrigues");
 
 
 ReactDOM.render(
